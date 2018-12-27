@@ -4,9 +4,20 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 // user pattern
 var userClickedPattern = [];
+// starting level
+var level = 0;
+// to verify if game is started
+var started = false;
 
 //functions and methods for simon game
-
+$(document).keypress(function(){
+  if(!started){
+    //check if started then change h1 to reflect level when keypress is initiated
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
+});
 
 $(".btn").click(function() {
 
@@ -21,6 +32,10 @@ $(".btn").click(function() {
 
 //next sequence
 function nextSequence(){
+  // increment level
+  level++;
+  // change h1 with level in HTML H1
+  $("#level-title").text("Level" + level);
   // generate random number
   var randomNumber = Math.floor(Math.random() * 4);
   // generate random color picker
@@ -45,5 +60,13 @@ function animatePress(currentColor){
   // remove class animation
   setTimeout(function() {
     $("#" + currentColor).removeClass("pressed");
-  },100);
+  },1000);
+}
+
+function checkAnswer(currentLevel){
+  if(gamePattern === userChosenColor){
+    console.log("success");
+  }else{
+    console.log("wrong");
+  }
 }
