@@ -24,7 +24,10 @@ $(".btn").click(function() {
   var userChosenColor = $(this).attr("id");
 
   userClickedPattern.push(userChosenColor);
+  playSound(userChosenColor);
+  animatePress(userChosenColor);
 
+checkAnswer(userClickedPattern.length-1);
   console.log(userClickedPattern);
 
 });
@@ -32,6 +35,8 @@ $(".btn").click(function() {
 
 //next sequence
 function nextSequence(){
+  // reset user pattern
+  var userClickedPattern = [];
   // increment level
   level++;
   // change h1 with level in HTML H1
@@ -60,12 +65,16 @@ function animatePress(currentColor){
   // remove class animation
   setTimeout(function() {
     $("#" + currentColor).removeClass("pressed");
-  },1000);
+  },100);
 }
 
 function checkAnswer(currentLevel){
-  if(gamePattern === userChosenColor){
+  if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){
     console.log("success");
+  }if(userClickedPattern.length === gamePattern.length){
+    setTimeout(function(){
+      nextSequence();
+    }, 1000);
   }else{
     console.log("wrong");
   }
