@@ -28,16 +28,14 @@ $(".btn").click(function() {
   checkAnswer(userClickedPattern.length - 1);
 
 });
-
+// update with a for loop
 function checkAnswer(currentLevel) {
-
   if (gamePattern[currentLevel] === userClickedPattern[currentLevel]){
-    console.log("success");
     if(userClickedPattern.length === gamePattern.length){
       setTimeout(function(){
         nextSequence();
       }, 1000);
-    }
+    }else{
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text("Game Over, Press any key to reset");
@@ -45,9 +43,9 @@ function checkAnswer(currentLevel) {
     setTimeout(function(){
       $("body").removeClass("game-over");
     }, 200);
-
     startOver();
   }
+ }
 }
 
 
